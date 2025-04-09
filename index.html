@@ -51,7 +51,7 @@
                         var coords = latitude + ',' + longitude;
 
                         if (usedCoordinates[coords]) {
-                            usedCoordinates[coords] += 0.0001;
+                            usedCoordinates[coords] += 0.05;
                             latitude += usedCoordinates[coords];
                         } else {
                             usedCoordinates[coords] = 0;
