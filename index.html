@@ -40,7 +40,7 @@
                     var longitude = parseFloat(row[3]); // Column 4: Longitude
                     var climate = row[6]; // Column 7: Climate data
                     var description = row[7]; // Column 8: Climate Description
-                    var temperature = row [9]; // Column 9: Temperature
+                    var temperature = row[9]; // Column 9: Temperature
 
                     // Check if latitude and longitude are valid numbers
                     if (!isNaN(latitude) && !isNaN(longitude)) {
@@ -58,7 +58,7 @@
                         var marker = L.marker([latitude, longitude]).addTo(map);
 
                         // Bind a popup with the student's name and climate data
-                        marker.bindPopup('<b>' + studentName + '</b><br>' + location '<br>'+ temperature '<br>'+ climate + '<br>' + description);
+                        marker.bindPopup('<b>' + studentName + '</b><br>' + location + '<br>'+ temperature + '<br>'+ climate + '<br>' + description);
 
                         // Add hover effect to open the popup when hovering over the marker
                         marker.on('mouseover', function() {
