@@ -40,7 +40,13 @@
                     if (!isNaN(latitude) && !isNaN(longitude)) {
                         // Create a marker at the latitude and longitude
                         var marker = L.marker([latitude, longitude]).addTo(map);
-
+// If the coordinates have already been used, apply an offset
+                        if (usedCoordinates[coords]) {
+                            usedCoordinates[coords] += 0.0001; // Small offset to avoid overlap
+                            latitude += usedCoordinates[coords];
+                        } else {
+                            usedCoordinates[coords] = 0; // Mark this coordinate as used
+                        }
                         // Bind a popup with the student's name and climate data
                         marker.bindPopup('<b>' + studentName + '</b><br>' + climate);
 
