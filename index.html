@@ -29,7 +29,7 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        var csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQE-dSyBWYMuzBknRKls8fIft_4n3664a0nkd1EN1nlIMIHpABeW4nnbj3WjIpCt-TLw34FRvyv91Mk/pub?output=csv';
+        var csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQE-dSyBWYMuzBknRKls8fIft_4n3664a0nkd1EN1nlIMIHpABeW4nnbj3WjIpCt-TLw34FRvyv91Mk/pub?gid=1811248263&single=true&output=csv';
 
         var usedCoordinates = {};
 
@@ -39,13 +39,13 @@
             skipEmptyLines: true,
             complete: function(results) {
                 results.data.forEach(function(row) {
-                    var studentName = row[0];
-                    var location = row[1];
-                    var latitude = parseFloat(row[2]);
-                    var longitude = parseFloat(row[3]);
-                    var climate = row[6];
-                    var description = row[7];
-                    var temperature = row[9];
+                    var studentName = row[1];
+                    var location = row[2];
+                    var latitude = parseFloat(row[3]);
+                    var longitude = parseFloat(row[4]);
+                    var climate = row[7];
+                    var description = row[8];
+                    var temperature = row[10];
 
                     if (!isNaN(latitude) && !isNaN(longitude)) {
                         var coords = latitude + ',' + longitude;
