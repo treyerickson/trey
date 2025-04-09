@@ -23,6 +23,9 @@
         // URL to the CSV file (either from GitHub or Google Sheets)
         var csvUrl = 'https://raw.githubusercontent.com/treyerickson/trey/refs/heads/main/Our%20Favorite%20Places%20-%20Sheet1.csv'; // Change to your URL
 
+        // Initialize the usedCoordinates object to track coordinates
+        var usedCoordinates = {};
+
         // Fetch and parse the CSV file
         Papa.parse(csvUrl, {
             download: true,
@@ -37,15 +40,17 @@
                     var climate = row[6]; // Column 7: Climate data
 
                     // Check if latitude and longitude are valid numbers
-                    if (!isNaN(latitude) && !isNaN(longitude)) 
-                    // If the coordinates have already been used, apply an offset
+                    if (!isNaN(latitude) && !isNaN(longitude)) {
+                        var coords = latitude + ',' + longitude; // Create a unique key for the coordinates
+
+                        // If the coordinates have already been used, apply an offset
                         if (usedCoordinates[coords]) {
                             usedCoordinates[coords] += 0.0001; // Small offset to avoid overlap
                             latitude += usedCoordinates[coords];
                         } else {
                             usedCoordinates[coords] = 0; // Mark this coordinate as used
                         }
-                    
+
                         // Create a marker at the latitude and longitude
                         var marker = L.marker([latitude, longitude]).addTo(map);
 
