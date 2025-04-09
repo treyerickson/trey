@@ -1,62 +1,73 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Student Climate Map</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student and Climate Data Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> <!-- Ensure PapaParse is loaded -->
     <style>
-      #map {
-        height: 90vh;
-        width: 100%;
-      }
+        #map {
+            height: 500px;
+            width: 100%;
+        }
     </style>
-  </head>
-  <body>
-    <h2>Interactive Student Climate Map</h2>
+</head>
+<body>
     <div id="map"></div>
 
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <script>
-      async function fetchSheetData() {
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQE-dSyBWYMuzBknRKls8fIft_4n3664a0nkd1EN1nlIMIHpABeW4nnbj3WjIpCt-TLw34FRvyv91Mk/pub?gid=0&single=true&output=csv';
-        const response = await fetch(sheetUrl);
-        const data = await response.text();
-        const rows = data.split('\n').slice(1); // skip header
-        return rows.map(row => {
-          const cols = row.split(',');
-          return {
-            name: cols[0],
-            lat: parseFloat(cols[2]),
-            lng: parseFloat(cols[3]),
-            climate: cols[6]
-          };
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 2);  // Default coordinates and zoom level
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Fetch and parse the Google Sheets CSV
+        var csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQE-dSyBWYMuzBknRKls8fIft_4n3664a0nkd1EN1nlIMIHpABeW4nnbj3WjIpCt-TLw34FRvyv91Mk/pub?gid=0&single=true&output=csv';
+
+        Papa.parse(csvUrl, {
+            download: true,
+            header: false,  // Set to false because the sheet doesn't have a header row
+            skipEmptyLines: true,
+            dynamicTyping: true,
+            complete: function(results) {
+                // Ensure results.data is an array and it has the necessary columns
+                if (results.data && results.data.length > 0) {
+                    // Loop through each row to retrieve data and pair it by row (each student's data)
+                    results.data.forEach(function(row) {
+                        // Access the student name, latitude, longitude, and climate data from the row
+                        var studentName = row[0];   // Column 1: Student name
+                        var latitude = row[2];      // Column 3: Latitude
+                        var longitude = row[3];     // Column 4: Longitude
+                        var climate = row[6];       // Column 7: Climate data
+
+                        // Create a marker for each student and add it to the map
+                        var marker = L.marker([latitude, longitude]).addTo(map);
+
+                        // Add a popup to the marker with student name and climate data
+                        marker.bindPopup('<b>' + studentName + '</b><br>' + climate);
+
+                        // Add hover event for showing popup on hover
+                        marker.on('mouseover', function() {
+                            marker.openPopup();
+                        });
+                        marker.on('mouseout', function() {
+                            marker.closePopup();
+                        });
+                    });
+                } else {
+                    console.error('No valid data in the CSV file.');
+                }
+            },
+            error: function(error) {
+                console.error('Error fetching CSV:', error);
+            }
         });
-      }
-
-      function initMap() {
-        const map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 2,
-          center: { lat: 20, lng: 0 }
-        });
-
-        fetchSheetData().then(locations => {
-          locations.forEach(loc => {
-            const marker = new google.maps.Marker({
-              position: { lat: loc.lat, lng: loc.lng },
-              map: map,
-              title: loc.name
-            });
-
-            const info = new google.maps.InfoWindow({
-              content: `<strong>${loc.name}</strong><br>${loc.climate}`
-            });
-
-            marker.addListener('mouseover', () => info.open(map, marker));
-            marker.addListener('mouseout', () => info.close());
-          });
-        });
-      }
     </script>
-
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaUmftdnZ6CB77dCKKsW7olEUquLvNkOs">
-    </script>
-  </body>
+</body>
 </html>
