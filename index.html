@@ -3,70 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student and Climate Data Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> <!-- Ensure PapaParse is loaded -->
-    <style>
-        #map {
-            height: 500px;
-            width: 100%;
-        }
-    </style>
+    <title>Leaflet Map Example</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
-    <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <div id="map" style="height: 500px;"></div>
 
     <script>
-        // Initialize the map
-        var map = L.map('map').setView([41, -96], 3);  // Default coordinates and zoom level
+        // Initialize the map and set the view to a specific latitude and longitude (zoom level 10)
+        var map = L.map('map').setView([41, -96], 10);
 
-        // Add OpenStreetMap tiles
+        // Add OpenStreetMap tile layer to the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Fetch and parse the Google Sheets CSV
-        var csvUrl = 'https://raw.githubusercontent.com/treyerickson/trey/refs/heads/main/Our%20Favorite%20Places%20-%20Sheet1.csv';
+        // Create a marker at the specified latitude and longitude
+        var marker = L.marker([41, -96]).addTo(map);
 
-        Papa.parse(csvUrl, {
-            download: true,
-            header: false,  // Set to false because the sheet doesn't have a header row
-            skipEmptyLines: true,
-            dynamicTyping: true,
-            complete: function(results) {
-                // Ensure results.data is an array and it has the necessary columns
-                if (results.data && results.data.length > 0) {
-                    // Loop through each row to retrieve data and pair it by row (each student's data)
-                    results.data.forEach(function(row) {
-                        // Access the student name, latitude, longitude, and climate data from the row
-                        var studentName = row[1];   // Column 1: Student name
-                        var latitude = row[3];      // Column 3: Latitude
-                        var longitude = row[4];     // Column 4: Longitude
-                        var climate = row[6];       // Column 7: Climate data
+        // Bind a popup to the marker with the text "Adam" and "Dfb"
+        marker.bindPopup('<b>Adam</b><br>Dfb');
 
-                        // Create a marker for each student and add it to the map
-                        var marker = L.marker([latitude, longitude]).addTo(map);
+        // Add hover effect to open the popup when hovering over the marker
+        marker.on('mouseover', function() {
+            marker.openPopup();
+        });
 
-                        // Add a popup to the marker with student name and climate data
-                        marker.bindPopup('<b>' + studentName + '</b><br>' + climate);
-
-                        // Add hover event for showing popup on hover
-                        marker.on('mouseover', function() {
-                            marker.openPopup();
-                        });
-                        marker.on('mouseout', function() {
-                            marker.closePopup();
-                        });
-                    });
-                } else {
-                    console.error('No valid data in the CSV file.');
-                }
-            },
-            error: function(error) {
-                console.error('Error fetching CSV:', error);
-            }
+        // Add hover effect to close the popup when the mouse leaves the marker
+        marker.on('mouseout', function() {
+            marker.closePopup();
         });
     </script>
 </body>
