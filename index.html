@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Climate Map</title>
+    <style>
+      #map {
+        height: 90vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Interactive Student Climate Map</h2>
+    <div id="map"></div>
+
+    <script>
+      async function fetchSheetData() {
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQE-dSyBWYMuzBknRKls8fIft_4n3664a0nkd1EN1nlIMIHpABeW4nnbj3WjIpCt-TLw34FRvyv91Mk/pub?gid=0&single=true&output=csv';
+        const response = await fetch(sheetUrl);
+        const data = await response.text();
+        const rows = data.split('\n').slice(1); // skip header
+        return rows.map(row => {
+          const cols = row.split(',');
+          return {
+            name: cols[0],
+            lat: parseFloat(cols[2]),
+            lng: parseFloat(cols[3]),
+            climate: cols[6]
+          };
+        });
+      }
+
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: { lat: 20, lng: 0 }
+        });
+
+        fetchSheetData().then(locations => {
+          locations.forEach(loc => {
+            const marker = new google.maps.Marker({
+              position: { lat: loc.lat, lng: loc.lng },
+              map: map,
+              title: loc.name
+            });
+
+            const info = new google.maps.InfoWindow({
+              content: `<strong>${loc.name}</strong><br>${loc.climate}`
+            });
+
+            marker.addListener('mouseover', () => info.open(map, marker));
+            marker.addListener('mouseout', () => info.close());
+          });
+        });
+      }
+    </script>
+
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaUmftdnZ6CB77dCKKsW7olEUquLvNkOs">
+    </script>
+  </body>
+</html>
