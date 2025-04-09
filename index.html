@@ -48,23 +48,28 @@
                     var temperature = row[10];
 
                     if (!isNaN(latitude) && !isNaN(longitude)) {
-                        var coords = latitude + ',' + longitude;
+                        var coordsKey = latitude + ',' + longitude;
 
-                    if (!usedCoordinates[coordsKey]) {
-                    usedCoordinates[coordsKey] = 0;
-                } else {
-                    usedCoordinates[coordsKey]++;
-                    // Offset in a circle pattern
-                    var offsetIndex = usedCoordinates[coordsKey];
-                    var angle = (offsetIndex * 45) * (Math.PI / 180); // convert to radians
-                    var radius = 0.01; // Adjust if needed (0.01 ~ 1.1 km)
-                    latitude += radius * Math.cos(angle);
-                    longitude += radius * Math.sin(angle);
+                        if (!usedCoordinates[coordsKey]) {
+                            usedCoordinates[coordsKey] = 0;
+                        } else {
+                            usedCoordinates[coordsKey]++;
+                            var offsetIndex = usedCoordinates[coordsKey];
+                            var angle = (offsetIndex * 45) * (Math.PI / 180); // degrees to radians
+                            var radius = 0.01; // offset distance ~1.1km
+                            latitude += radius * Math.cos(angle);
+                            longitude += radius * Math.sin(angle);
                         }
 
                         var marker = L.marker([latitude, longitude]).addTo(map);
 
-                        marker.bindPopup('<b>' + studentName + '</b><br>' + location + '<br>' + temperature + '<br>' + climate + '<br>' + description);
+                        marker.bindPopup(
+                            '<b>' + studentName + '</b><br>' +
+                            location + '<br>' +
+                            temperature + '<br>' +
+                            climate + '<br>' +
+                            description
+                        );
 
                         marker.on('mouseover', function() {
                             marker.openPopup();
