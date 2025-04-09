@@ -7,65 +7,64 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <div id="map" style="height: 500px;"></div>
+    <div id="map"></div>
 
     <script>
-        // Initialize the map and set the view to a specific latitude and longitude (zoom level 5)
         var map = L.map('map').setView([41, -96], 5);
 
-        // Add OpenStreetMap tile layer to the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // URL to the CSV file (either from GitHub or Google Sheets)
-        var csvUrl = 'https://raw.githubusercontent.com/treyerickson/trey/refs/heads/main/Our%20Favorite%20Places%20-%20Sheet1.csv'; // Change to your URL
+        var csvUrl = 'https://raw.githubusercontent.com/treyerickson/trey/refs/heads/main/Our%20Favorite%20Places%20-%20Sheet1.csv';
 
-        // Initialize the usedCoordinates object to track coordinates
         var usedCoordinates = {};
 
-        // Fetch and parse the CSV file
         Papa.parse(csvUrl, {
             download: true,
             header: false,
             skipEmptyLines: true,
             complete: function(results) {
-                // Process each row in the CSV
                 results.data.forEach(function(row) {
-                    var studentName = row[0];   // Column 1: Student name
-                    var location = row[1];      // Column 2: Location
-                    var latitude = parseFloat(row[2]);  // Column 3: Latitude
-                    var longitude = parseFloat(row[3]); // Column 4: Longitude
-                    var climate = row[6]; // Column 7: Climate data
-                    var description = row[7]; // Column 8: Climate Description
-                    var temperature = row[9]; // Column 9: Temperature
+                    var studentName = row[0];
+                    var location = row[1];
+                    var latitude = parseFloat(row[2]);
+                    var longitude = parseFloat(row[3]);
+                    var climate = row[6];
+                    var description = row[7];
+                    var temperature = row[9];
 
-                    // Check if latitude and longitude are valid numbers
                     if (!isNaN(latitude) && !isNaN(longitude)) {
-                        var coords = latitude + ',' + longitude; // Create a unique key for the coordinates
+                        var coords = latitude + ',' + longitude;
 
-                        // If the coordinates have already been used, apply an offset
                         if (usedCoordinates[coords]) {
-                            usedCoordinates[coords] += 0.0001; // Small offset to avoid overlap
+                            usedCoordinates[coords] += 0.0001;
                             latitude += usedCoordinates[coords];
                         } else {
-                            usedCoordinates[coords] = 0; // Mark this coordinate as used
+                            usedCoordinates[coords] = 0;
                         }
 
-                        // Create a marker at the latitude and longitude
                         var marker = L.marker([latitude, longitude]).addTo(map);
 
-                        // Bind a popup with the student's name and climate data
-                        marker.bindPopup('<b>' + studentName + '</b><br>' + location + '<br>'+ temperature + '<br>'+ climate + '<br>' + description);
+                        marker.bindPopup('<b>' + studentName + '</b><br>' + location + '<br>' + temperature + '<br>' + climate + '<br>' + description);
 
-                        // Add hover effect to open the popup when hovering over the marker
                         marker.on('mouseover', function() {
                             marker.openPopup();
                         });
 
-                        // Add hover effect to close the popup when the mouse leaves the marker
                         marker.on('mouseout', function() {
                             marker.closePopup();
                         });
