@@ -1,0 +1,29 @@
+Student,City,Latitude,Longitude,,"Combined Lat, Lon",Koppen Climate,Code,Optional Status,9-Temp (C),10-Dew Point,11-Status
+Paxton B,"Pine River, MN",46.7180163,-94.4041625,Success,"46.7180163,-94.4041625",Dfb,"Humid continental, no dry season, warm summer",,34.1,17,Success
+Megan H,"Washington, DC",38.9071923,-77.0368707,Success,"38.9071923,-77.0368707",Cfa,"Humid subtropical, no dry season",,37.5,15.3,Success
+Aiden H,"Tacoma, WA",47.255134,-122.4420002,Success,"47.255134,-122.4420002",Csb,"Mediterranean, warm summer",,46.1,41.8,Success
+Kaylee K,"Chicago, IL",41.8781136,-87.6297982,Success,"41.8781136,-87.6297982",Dfa,"Humid continental, no dry season, hot summer",,32.4,20.5,Success
+Teagan Z,"Elk River, MN",45.303218,-93.5547381,Success,"45.303218,-93.5547381",Dfb,"Humid continental, no dry season, warm summer",,37.6,12.4,Success
+Neveah A,"Billings, MT",45.7827769,-108.5045938,Success,"45.7827769,-108.5045938",BSk,Mid-latitude steppe,,53,14.1,Success
+Gretta J,"Elk River, MN",45.303218,-93.5547381,Success,"45.303218,-93.5547381",Dfb,"Humid continental, no dry season, warm summer",,37.6,12.4,Success
+Xander W,"Daytona Beach, FL",29.2071029,-81.0196796,Success,"29.2071029,-81.0196796",Cfa,"Humid subtropical, no dry season",,64.1,53.7,Success
+Ashley Y,"Clearwater, FL",27.9655722,-82.7958948,Success,"27.9655722,-82.7958948",Cfa,"Humid subtropical, no dry season",,62.4,50.4,Success
+Max K,"Grand Canyon, AZ",36.0544445,-112.1401108,Success,"36.0544445,-112.1401108",BSk,Mid-latitude steppe,,56.8,9.6,Success
+Liam P,"Pompano Beach, FL",26.2305913,-80.1251021,Success,"26.2305913,-80.1251021",Am,Tropical monsoon,,70.2,66.5,Success
+Amber A,"Sebastian, FL",27.816415,-80.4706078,Success,"27.816415,-80.4706078",Cfa,"Humid subtropical, no dry season",,67.3,62.3,Success
+Douglas C,"Topanga Beach, CA",34.0900384,-118.6050361,Success,"34.0900384,-118.6050361",Csb,"Mediterranean, warm summer",,61.5,47.5,Success
+Logan D,"Tampa, FL",27.9516896,-82.4587527,Success,"27.9516896,-82.4587527",Cfa,"Humid subtropical, no dry season",,63.4,52.3,Success
+Kim D,"Washington, DC",38.9071923,-77.0368707,Success,"38.9071923,-77.0368707",Cfa,"Humid subtropical, no dry season",,37.5,15.3,Success
+Abby L,"Orlando, FL",28.5383832,-81.3789269,Success,"28.5383832,-81.3789269",Cfa,"Humid subtropical, no dry season",,66,55.1,Success
+Bentley M,"Elk River, MN",45.303218,-93.5547381,Success,"45.303218,-93.5547381",Dfb,"Humid continental, no dry season, warm summer",,37.6,12.4,Success
+Reese R,"Tampa, FL",27.9516896,-82.4587527,Success,"27.9516896,-82.4587527",Cfa,"Humid subtropical, no dry season",,63.4,52.3,Success
+Sofie G,"Tampa, FL",27.9516896,-82.4587527,Success,"27.9516896,-82.4587527",Cfa,"Humid subtropical, no dry season",,63.4,52.3,Success
+Devon W,"Wilkerson Pass, CO",39.0380473,-105.5255561,Success,"39.0380473,-105.5255561",Dfc,"Subartic, severe winter, no dry season, cool summer",,40.9,12.6,Success
+Mason C,"Tucson, AZ",32.2539787,-110.9741769,Success,"32.2539787,-110.9741769",BSh,Subtropical steppe,,71,6.6,Success
+Caden F,"Elk River, MN",45.303218,-93.5547381,Success,"45.303218,-93.5547381",Dfb,"Humid continental, no dry season, warm summer",,37.6,12.4,Success
+Delaney S,"Kahului, HI",20.8893016,-156.4728725,Success,"20.8893016,-156.4728725",Af,Tropical rainforest,,78.4,64.8,Success
+Dylan A,"Elk River, MN",45.303218,-93.5547381,Success,"45.303218,-93.5547381",Dfb,"Humid continental, no dry season, warm summer",,37.6,12.4,Success
+Ryan C,"Elk River, MN",45.303218,-93.5547381,Success,"45.303218,-93.5547381",Dfb,"Humid continental, no dry season, warm summer",,37.6,12.4,Success
+Max M,"Tampa, FL",27.9516896,-82.4587527,Success,"27.9516896,-82.4587527",Cfa,"Humid subtropical, no dry season",,63.4,52.3,Success
+Trey E,"Eagle Butte, SD",44.9886537,-101.2224805,Success,"44.9886537,-101.2224805",BSk,Mid-latitude steppe,,51,31.5,Success
+Richard E,"Utqiagvik, AK",71.2905556,-156.7886111,Success,"71.2905556,-156.7886111",ET,Tundra,,-0.3,-5.3,Success
